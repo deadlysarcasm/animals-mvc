@@ -1,0 +1,18 @@
+Homework 01
+
+This is a basic setup task using animal theme.
+
+Create new ASP MVC C# project
+
+Required items/tasks:
+
+1 - animal Model class within Models folder
+2 - an Animal controller with view, create options
+3 - the made up company's name, phone number and email must be stored in the Web.Config within AppSettings node and displayed within the _Layout file
+4 - view page must use a partial for the individual animal display (hint: the main View for the view animals would use a @model List<AnimalModel>)
+5 - the animal controller's view page should be linked within the _Layout view and accessible on every page
+6 - there should be a view animal page with shows some info about an animal
+7 - jquery should be enabled (hint: bundles..)
+8 - when the create page is opened, an alert should be triggered saying hello, wrapped within a jquery onload
+
+Due: end of office 22nd Nov
