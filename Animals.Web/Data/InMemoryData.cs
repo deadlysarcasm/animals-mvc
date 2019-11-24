@@ -28,5 +28,22 @@ namespace Animals.Web.Data
         {
             return data.FirstOrDefault(x => x.Id == Id);
         }
+
+        public void Update(Animal animal)
+        {
+            var existing = Get(animal.Id);
+            if (existing != null)
+            {
+                existing.Name = animal.Name;
+                existing.Gender = animal.Gender;
+                existing.Species = animal.Species;
+            }
+        }
+
+        public void Add(Animal animal)
+        {
+            data.Add(animal);
+            animal.Id = data.Max(x => x.Id) + 1;
+        }
     }
 }

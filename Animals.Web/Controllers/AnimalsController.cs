@@ -28,5 +28,44 @@ namespace Animals.Web.Controllers
             var model = data.Get(Id);
             return View(model);
         }
+
+        [HttpGet]
+        public ActionResult Edit(int Id)
+        {
+            var model = data.Get(Id);
+            return View(model);
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult Edit(Animal animal)
+        {
+            if (ModelState.IsValid)
+            {
+                data.Update(animal);
+                return RedirectToAction("Details", new { id = animal.Id });
+            }
+
+            return View(animal);
+        }
+        
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult Create(Animal animal)
+        {
+            if(ModelState.IsValid)
+            {
+                data.Add(animal);
+                return RedirectToAction("Details", new { id = animal.Id });
+            }
+
+            return View();
+        }
     }
 }
