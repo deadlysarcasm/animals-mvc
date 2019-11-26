@@ -27,14 +27,23 @@ namespace Animals.Web.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var model = StaticData.animals[id - 1];
-            return View(model);
+            try
+            {
+                var model = StaticData.animals[id - 1];
+                return View(model);
+            }
+            catch (Exception e)
+            {
+                ViewBag.ErrorMessage = "Could not find Animal";
+                return View("Error");
+            }
         }
 
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Edit(Animal animal)
         {
+            ModelState.AddModelError("Name", "Text");
             if (ModelState.IsValid)
             {
                 var current = StaticData.animals.FirstOrDefault(x => x.Id == animal.Id);
@@ -47,7 +56,7 @@ namespace Animals.Web.Controllers
                 return RedirectToAction("Details", new { id = animal.Id });
             }
 
-            return View(animal);
+            return View("Error");
         }
         
         [HttpGet]
