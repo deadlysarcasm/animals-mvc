@@ -9,30 +9,25 @@ using Animals.Web.Models;
 namespace Animals.Web.Controllers
 {
     public class AnimalsController : Controller
-    {
-        private InMemoryData data;
-
-        public AnimalsController()
-        {
-            data = new InMemoryData();
-        }
+    { 
+        
         // GET: Animals
         public ActionResult Index()
         {
-            var model = data.GetAll();
+            var model = StaticData.animals;
             return View(model);
         }
 
-        public ActionResult Details(int Id)
+        public ActionResult Details(int id)
         {
-            var model = data.Get(Id);
+            var model = StaticData.animals[id - 1];
             return View(model);
         }
 
         [HttpGet]
-        public ActionResult Edit(int Id)
+        public ActionResult Edit(int id)
         {
-            var model = data.Get(Id);
+            var model = StaticData.animals[id - 1];
             return View(model);
         }
 
@@ -42,7 +37,13 @@ namespace Animals.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                data.Update(animal);
+                var current = StaticData.animals.FirstOrDefault(x => x.Id == animal.Id);
+                if (current != null)
+                {
+                    current.Name = animal.Name;
+                    current.Gender = animal.Gender;
+                    current.Species = animal.Species;
+                }
                 return RedirectToAction("Details", new { id = animal.Id });
             }
 
@@ -61,7 +62,8 @@ namespace Animals.Web.Controllers
         {
             if(ModelState.IsValid)
             {
-                data.Add(animal);
+                animal.Id = StaticData.animals.Max(x => x.Id) + 1;
+                StaticData.animals.Add(animal);
                 return RedirectToAction("Details", new { id = animal.Id });
             }
 

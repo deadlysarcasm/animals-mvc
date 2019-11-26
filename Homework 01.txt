@@ -15,4 +15,6 @@ Required items/tasks:
 7 - jquery should be enabled (hint: bundles..)
 8 - when the create page is opened, an alert should be triggered saying hello, wrapped within a jquery onload
 
-Due: end of office 22nd Nov
+oops
+
+
